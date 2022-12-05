@@ -4,20 +4,17 @@ import java.net.*;
 public class Client
 {
     public String nome;
+    public Socket socket;
 
     public void executar()
     {
         // TO-DO MUDAR HOST
-        try (Socket socket = new Socket("127.0.0.1", 5555))
+        try 
         {
-            // capturar output stream
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);      
+            socket = new Socket("192.168.1.236", 5555);
 
-            // capturar input stream
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-            new Thread(new ThreadLeitura(in, this)).start();
-            new Thread(new ThreadEscrita(out, this)).start();
+            new Thread(new ThreadEscrita(socket, this)).start();
+            new Thread(new ThreadLeitura(socket, this)).start();
         }
         catch (IOException e)
         {

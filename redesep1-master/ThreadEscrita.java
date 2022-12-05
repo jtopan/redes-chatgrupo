@@ -1,14 +1,25 @@
 import java.io.*;
+import java.net.*;
 
 public class ThreadEscrita implements Runnable
     {
         private PrintWriter out;
         private Client cliente;
+        private Socket socket;
 
-        public ThreadEscrita(PrintWriter out, Client cliente) throws IOException
+        public ThreadEscrita(Socket socket, Client cliente) throws IOException
         {
-            this.out = out;
+            this.socket = socket;
             this.cliente = cliente;
+
+            try
+            {
+                this.out = new PrintWriter(this.socket.getOutputStream(), true);  
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
 
         public void run()
@@ -18,12 +29,14 @@ public class ThreadEscrita implements Runnable
             out.println(nome);
 
             String msgcliente;
+            String msg;
 
             do
             {
-                msgcliente = System.console().readLine("[" + nome + "]: ");
+                msg = System.console().readLine();
+                msgcliente = "[" + nome + "]: " + msg;
                 out.println(msgcliente);
 
-            } while (!msgcliente.equals("-d"));
+            } while (!msg.equals("-d"));
         }
     }

@@ -33,18 +33,25 @@ public class ClientHandler implements Runnable
 
                 // 4. recebe resposta
                 this.nome = in.readLine();
-                String msgservidor = nome + " entrou no chat!";
+                String msgservidor = "\n" + nome + " entrou no chat!";
                 servidor.broadcast(msgservidor, this); 
 
                 String msgcliente;
-
-                do 
+                Boolean sair = false;
+                while (!sair)
                 {
                     msgcliente = in.readLine();
-                    msgservidor = "[" + nome + "]: " + msgcliente;
-                    servidor.broadcast(msgservidor, this);
-
-                } while (!msgcliente.equals("-d"));
+                    if (msgcliente != null)
+                    {
+                        if (msgcliente.equals("-d"))
+                        {
+                            sair = true;
+                            break;
+                        }
+                        msgservidor = msgcliente;
+                        servidor.broadcast(msgservidor, this);
+                    }
+                }
 
                 servidor.removeusuario(this);
             }

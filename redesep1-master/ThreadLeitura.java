@@ -1,14 +1,23 @@
 import java.io.*;
+import java.net.*;
 
 public class ThreadLeitura implements Runnable
 {
     private BufferedReader in;
-    private Client cliente;
+    private Socket socket;
 
-    public ThreadLeitura(BufferedReader in, Client cliente) throws IOException
+    public ThreadLeitura(Socket socket, Client cliente) throws IOException
     {
-        this.in = in;
-        this.cliente = cliente;
+        this.socket = socket;
+
+        try
+        {
+            this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void run()
@@ -19,11 +28,6 @@ public class ThreadLeitura implements Runnable
             {
                 String msgservidor = in.readLine();
                 System.out.println("\n" + msgservidor);
-
-                if (cliente.nome != null)
-                {
-                    System.out.println("[" + cliente.nome + "]: ");
-                }
             }
             catch (IOException e)
             {

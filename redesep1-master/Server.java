@@ -25,7 +25,7 @@ public class Server
             // loop infinito p/ capturar conexoes
             while (true)
             {
-                Socket socket_cliente = this.servidor.accept();
+                Socket socket_cliente = servidor.accept();
 
                 // mostra em tela a notificacao de conexao
                 System.out.println("Nova conexão: " + socket_cliente.getInetAddress().getHostAddress());
