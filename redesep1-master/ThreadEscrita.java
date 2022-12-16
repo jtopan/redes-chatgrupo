@@ -27,16 +27,14 @@ public class ThreadEscrita implements Runnable
             String nome = System.console().readLine("\nInforme seu nome de usuario: ");
             cliente.nome = nome;
             out.println(nome);
-
-            String msgcliente;
+            
             String msg;
 
             do
             {
                 msg = System.console().readLine();
-                msgcliente = "[" + nome + "]: " + msg;
-                out.println(msgcliente);
+                out.println(msg);
 
-            } while (!msg.equals("-d"));
+            } while (!msg.equals("bye"));
         }
     }

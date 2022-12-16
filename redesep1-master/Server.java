@@ -73,7 +73,7 @@ public class Server
     public void removeusuario(ClientHandler thread_cliente)
     {
         listaclientes.remove(thread_cliente);
-        String msgservidor = thread_cliente.nome + "saiu do chat!";
+        String msgservidor = thread_cliente.nome + " saiu do chat!";
         broadcast(msgservidor, thread_cliente);
     }
 

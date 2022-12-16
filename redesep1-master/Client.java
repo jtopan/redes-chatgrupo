@@ -6,12 +6,12 @@ public class Client
     public String nome;
     public Socket socket;
 
-    public void executar()
+    public void executar(String host)
     {
         // TO-DO MUDAR HOST
         try 
         {
-            socket = new Socket("192.168.1.236", 5555);
+            socket = new Socket(host, 5555);
 
             new Thread(new ThreadEscrita(socket, this)).start();
             new Thread(new ThreadLeitura(socket, this)).start();
@@ -24,7 +24,8 @@ public class Client
 
     public static void main(String[] args) 
     {
+        String host = System.console().readLine("Insira um endereço IP do servidor: ");
         Client cliente = new Client();
-        cliente.executar();
+        cliente.executar(host);
     }
 }

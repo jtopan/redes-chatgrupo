@@ -43,12 +43,12 @@ public class ClientHandler implements Runnable
                     msgcliente = in.readLine();
                     if (msgcliente != null)
                     {
-                        if (msgcliente.equals("-d"))
+                        if (msgcliente.equals("bye"))
                         {
                             sair = true;
                             break;
                         }
-                        msgservidor = msgcliente;
+                        msgservidor = "[" + nome + "]: " + msgcliente;
                         servidor.broadcast(msgservidor, this);
                     }
                 }

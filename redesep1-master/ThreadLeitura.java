@@ -27,6 +27,7 @@ public class ThreadLeitura implements Runnable
             try
             {
                 String msgservidor = in.readLine();
+                if (msgservidor == null) break;
                 System.out.println("\n" + msgservidor);
             }
             catch (IOException e)
